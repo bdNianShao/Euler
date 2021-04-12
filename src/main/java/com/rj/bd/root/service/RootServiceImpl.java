@@ -10,7 +10,7 @@ import com.rj.bd.root.dao.RootMapper;
 import com.rj.bd.root.entity.Root;
 
 /**
-* @desc 
+* @desc root模块接口的实现类
 * 
 * @author TianShuo
 * 

@@ -5,7 +5,7 @@ import java.util.List;
 import com.rj.bd.root.entity.Root;
 
 /**
-* @desc 
+* @desc root模块的接口
 * 
 * @author TianShuo
 * 
