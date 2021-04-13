@@ -15,5 +15,5 @@ public interface IRootService {
 
 	List<Root> queryAll();
 
-
+	 Root rootByRootName(String rootname);
 }
