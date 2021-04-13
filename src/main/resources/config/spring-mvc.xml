@@ -41,6 +41,11 @@
         <!-- <property name="maxUploadSize" value="-1" /> -->
 	    <property name="maxUploadSize" value="5242880"></property>
     </bean>
-	
+<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.rj.bd.tool.CORSInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 	
 	</beans>
