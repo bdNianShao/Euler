@@ -5,9 +5,13 @@ package com.rj.bd.job.dao;
  * @date: 2021年4月13日 上午8:05:07
  */
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rj.bd.logs.eneity.Logs;
+import org.springframework.stereotype.Service;
 
-public interface JobMapper extends BaseMapper<Logs>{
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.rj.bd.job.eneity.Job;
+
+
+@Service("jobMapper")
+public interface JobMapper extends BaseMapper<Job>{
 
 }

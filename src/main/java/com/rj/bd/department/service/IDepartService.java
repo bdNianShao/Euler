@@ -4,6 +4,8 @@ package com.rj.bd.department.service;
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:06:09
  */
-public interface IDepartService {
 
+
+public interface IDepartService {
+	void delete(Integer departid);
 }
