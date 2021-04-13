@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.rj.bd.root.dao.RootMapper;
 import com.rj.bd.root.entity.Root;
 
@@ -62,10 +63,12 @@ public class RootServiceImpl implements IRootService
 
 	@Override
 	public void reset(int rootid) {
-		Root root=rootMapper.selectById(rootid);
-		root.setRootpassword("123");
-		root.setToken("123");
-		rootMapper.update(root, null);
+		LambdaUpdateWrapper<Root> lambdaUpdateWrapper = new LambdaUpdateWrapper<Root>();
+		lambdaUpdateWrapper.eq(true, Root::getRootid, rootid);
+		Root entity = new Root();
+		entity.setRootpassword("123");
+		entity.setToken("123");
+		rootMapper.update(entity, lambdaUpdateWrapper);
 	}
 	
 }
