@@ -15,23 +15,24 @@ public class DateTool {
 	 * @desc 获取当前时间戳
 	 * @return
 	 */
-	public static long getNowTimeNum()
+	public static String getNowTimeNum()
+	
 	{
-		return System.currentTimeMillis();
+		return Long.toString(System.currentTimeMillis());
 	}
 	/**
 	 * @desc 时间戳转换成日期格式
 	 * @param timestamp
 	 * @return
 	 */
-	public static 	String  convertTimestamp2Date(Long  timestamp)
+	public static 	String  convertTimestamp2Date(String  timestampStr)
 	
 	{
         String pattern = "yyyy-MM-dd HH:mm:ss";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+        long   timestamp = Long.parseLong(timestampStr);
         return simpleDateFormat.format(new Date(timestamp));
 	}
-	
 	
 
 }
