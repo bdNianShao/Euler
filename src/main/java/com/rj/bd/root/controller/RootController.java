@@ -2,6 +2,7 @@ package com.rj.bd.root.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +33,16 @@ private IRootService rootService;
 
 @RequestMapping("/query")
 @ResponseBody
-public List<Root> queryRoot()
+public List<Root> queryRoot(String token)
 {
+	if ( ! rootService.rootBytoken(token)) 
+		
+	{
+		List<Root> list = new ArrayList<Root>();
+		list.add(new Root());
+		return  list;
+	}
+	
 	List<Root> roots = rootService.queryAll();
 	for (Root root : roots) 
 	{
@@ -51,7 +60,7 @@ public List<Root> queryRoot()
  */
 @RequestMapping("/login")
 @ResponseBody
-public Map login(String rootnum,String password)
+public Map<String, Object> login(String rootnum,String password)
 {
 	Root root = rootService.rootByRootName(rootnum);
 	Map<String , Object> map = new HashMap<String, Object>();
@@ -68,6 +77,7 @@ public Map login(String rootnum,String password)
 		{
 			map.put("msc", 200);
 			map.put("text", "登录成功");
+			map.put("token", root.getToken());
 		}
 		else 
 		{
@@ -78,11 +88,6 @@ public Map login(String rootnum,String password)
 	
 	return map;
 }
-
-
-
-
-
 
 
 }

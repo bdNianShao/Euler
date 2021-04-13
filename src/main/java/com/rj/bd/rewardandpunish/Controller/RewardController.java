@@ -1,5 +1,7 @@
 package com.rj.bd.rewardandpunish.Controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,15 +25,13 @@ public class RewardController {
 	public IRewardService rewardService;	
 	
 	@RequestMapping("/add")	
-	public String add(Rewardandpunish r,Root root,Staff staff)//,int rootid,int staffid
+	public Map<String, Object> add(Rewardandpunish r,Root root,Staff staff)//,int rootid,int staffid
 	{
 		r.setRptime(DateTool.getNowTimeNum());
 		r.setRoot(root);
 		r.setStaff(staff);
-	System.out.println("-------add()------》");
-System.out.println(r);
-	rewardService.save(r);
-	return null;
+		rewardService.save(r);
+		return null;
 	}	
 	
 }

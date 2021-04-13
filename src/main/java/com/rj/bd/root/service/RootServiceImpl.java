@@ -35,4 +35,23 @@ public class RootServiceImpl implements IRootService
 		lambdaQueryWrapper.eq(true, Root::getRootname, rootname);
 		return rootMapper.selectOne(lambdaQueryWrapper);
 	}
+	public boolean rootBytoken(String token){
+		LambdaQueryWrapper<Root> lambdaQueryWrapper=new LambdaQueryWrapper<Root>();
+		lambdaQueryWrapper.eq(true, Root::getToken, token);
+		if ( rootMapper.selectOne(lambdaQueryWrapper) != null) 
+		{
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public Root queryRootBytoken(String token) {
+		LambdaQueryWrapper<Root> lambdaQueryWrapper=new LambdaQueryWrapper<Root>();
+		lambdaQueryWrapper.eq(true, Root::getToken, token);
+		return  rootMapper.selectOne(lambdaQueryWrapper);
+	}
+	
+	
 }

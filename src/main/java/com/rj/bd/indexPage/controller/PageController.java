@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rj.bd.indexPage.service.IPageService;
+import com.rj.bd.root.entity.Root;
+import com.rj.bd.root.service.IRootService;
 
 /**
 * @desc 前端控制器
@@ -24,12 +26,21 @@ import com.rj.bd.indexPage.service.IPageService;
 public class PageController {
 	 @Autowired
 	    private IPageService pageService;
-	    
+	 @Autowired
+	 private IRootService rootService;
 	    @RequestMapping("/query")
 	    @ResponseBody
-		public List<?> queryRoot()
+		public List<?> queryRoot(String token)
 		
 	    {
+	    	
+	    	if ( ! rootService.rootBytoken(token)) 
+	    		
+	    	{
+	    		List<?> list = new ArrayList<Object>();
+	    		return  list;
+	    	}
+	    	
 	    List<Map<String, Integer>> list = new ArrayList<Map<String, Integer>>();
 	    //
 	    int staffnum = pageService.getStaffnum();

@@ -16,4 +16,8 @@ public interface IRootService {
 	List<Root> queryAll();
 
 	 Root rootByRootName(String rootname);
+	 
+	 public boolean rootBytoken(String token);
+	 
+	 public Root queryRootBytoken(String token);
 }

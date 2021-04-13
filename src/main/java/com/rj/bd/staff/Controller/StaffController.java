@@ -1,5 +1,7 @@
 package com.rj.bd.staff.Controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +24,7 @@ public class StaffController {
 	
 	
 	@RequestMapping("/delete")
-	public String delete(Integer staffid)
+	public Map<String, Object> delete(Integer staffid)
 	{
 		staffid=99;
 		System.out.println("delete---->"+staffid);
