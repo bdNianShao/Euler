@@ -20,4 +20,8 @@ public interface IRootService {
 	 public boolean rootBytoken(String token);
 	 
 	 public Root queryRootBytoken(String token);
+	 
+	void delete(int rootid);
+	
+	void reset(int rootid);
 }

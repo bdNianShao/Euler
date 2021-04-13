@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rj.bd.root.entity.Root;
 import com.rj.bd.root.service.IRootService;
 
+import net.sf.jsqlparser.parser.Token;
+
 
 /**
 * @desc 前端控制器
@@ -88,6 +90,50 @@ public Map<String, Object> login(String rootnum,String password)
 	
 	return map;
 }
+@RequestMapping("/delete")
+@ResponseBody
+public Map delete(int rootid,String token){
+	
+	Map<String , Object> map = new HashMap<String, Object>();
+	
+if ( ! rootService.rootBytoken(token)) 
+		
+	{
+		map.put("msc", -1);
+		map.put("text", "删除失败");
+		return  map;
+	}
+	rootService.delete(rootid);
+			
+			map.put("msc", 200);
+			map.put("text", "删除成功");
+	return map;
+}
+
+
+
+@RequestMapping("/reset")
+@ResponseBody
+public Map reset(int rootid,String token){
+	
+	Map<String , Object> map = new HashMap<String, Object>();
+	
+if ( ! rootService.rootBytoken(token)) 
+		
+	{
+		map.put("msc", -1);
+		map.put("text", "重置失败");
+		return  map;
+	}
+	rootService.reset(rootid);
+			
+			map.put("msc", 200);
+			map.put("text", "重置成功");
+	return map;
+	
+	
+}
+
 
 
 }

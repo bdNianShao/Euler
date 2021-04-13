@@ -1,6 +1,7 @@
 package com.rj.bd.root.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,19 @@ public class RootServiceImpl implements IRootService
 		lambdaQueryWrapper.eq(true, Root::getToken, token);
 		return  rootMapper.selectOne(lambdaQueryWrapper);
 	}
-	
+
+	@Override
+	public void delete(int rootid) {
+		rootMapper.delete(rootid);
+		
+	}
+
+	@Override
+	public void reset(int rootid) {
+		Root root=rootMapper.selectById(rootid);
+		root.setRootpassword("123");
+		root.setToken("123");
+		rootMapper.update(root, null);
+	}
 	
 }
