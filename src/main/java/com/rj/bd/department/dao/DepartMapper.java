@@ -1,6 +1,7 @@
 package com.rj.bd.department.dao;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -16,4 +17,7 @@ public interface DepartMapper extends BaseMapper<Department>{
 	
 	@Delete("delete from department where departid=#{departid}")
 	public void delete(Integer departid);
+	
+	@Select("select * from department  where departid=#{departid}")
+	Department queryOneById();
 }

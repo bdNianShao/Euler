@@ -11,5 +11,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rj.bd.logs.eneity.Logs;
 @Service("logsMapper")
 public interface LogsMapper extends BaseMapper<Logs>{
-
+	
 }

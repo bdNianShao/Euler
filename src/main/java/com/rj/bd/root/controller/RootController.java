@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rj.bd.logs.eneity.Logs;
 import com.rj.bd.root.entity.Root;
 import com.rj.bd.root.service.IRootService;
 
@@ -44,6 +45,9 @@ public List<Root> queryRoot(String token)
 		list.add(new Root());
 		return  list;
 	}
+
+	
+	
 	
 	List<Root> roots = rootService.queryAll();
 	for (Root root : roots) 

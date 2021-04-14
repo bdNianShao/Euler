@@ -8,6 +8,10 @@ package com.rj.bd.staff.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Many;
+import org.apache.ibatis.annotations.One;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +24,17 @@ public interface StaffMapper extends BaseMapper<Staff>{
 	@Delete("delete from staff where staffid=#{staffid}")
 	public void delete(Integer staffid);
 	
-	
-	@Select("SELECT* FROM staff AS s	LEFT JOIN department AS d ON ( s.departid = d.departid )	LEFT JOIN job AS j on(	j.jobid = s.jobid)")
+	@Select("SELECT* FROM staff")
+	@Results({
+		@Result(column="staffid",property="staffid"),
+		@Result(column="staffnum",property="staffnum"),
+		@Result(column="name",property="name"),
+		@Result(column="sex",property="sex"),
+		@Result(column="edu",property="edu"),
+		@Result(column="age",property="age"),
+		@Result(column="joindate",property="joindate"),
+		@Result(column="jobid",property="job",one=@One(select="com.rj.bd.job.dao.JobMapper.queryOneById")),
+		@Result(column="departid",property="department",one=@One(select="com.rj.bd.department.dao.DepartMapper.queryOneById"))
+	})
 	public List<Staff> findAll();
 }
