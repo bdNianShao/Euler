@@ -40,4 +40,10 @@ public class StaffServiceImpl implements IStaffService{
 		staffMapper.editStaff(staff);
 	}
 
+	@Override
+	public void save(Staff staff) {
+		staffMapper.addStaff(staff);
+		
+	}
+
 }

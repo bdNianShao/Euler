@@ -8,6 +8,7 @@ package com.rj.bd.staff.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
@@ -58,5 +59,9 @@ public interface StaffMapper extends BaseMapper<Staff>{
 	
 	@Update("update staff set name = #{name},edu = #{edu},age = #{age} where staffid=#{staffid}")
 	public void editStaff(Staff staff);
+
+	
+	@Insert("INSERT INTO staff(staffid, jobid, staffnum, name, sex, age, edu, joindate, departid) VALUES (#{staffid},#{job.jobid},#{staffnum},#{name},#{sex},#{age},#{edu},#{joindate},#{department.departid});")
+	public void addStaff(Staff staff);
 	
 }

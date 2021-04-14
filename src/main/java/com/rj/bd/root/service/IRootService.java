@@ -24,4 +24,6 @@ public interface IRootService {
 	void delete(int rootid);
 	
 	void reset(int rootid);
+
+	void save(Root root);
 }

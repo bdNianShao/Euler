@@ -70,5 +70,11 @@ public class RootServiceImpl implements IRootService
 		entity.setToken("123");
 		rootMapper.update(entity, lambdaUpdateWrapper);
 	}
+
+	@Override
+	public void save(Root root) {
+		System.out.println(root);
+		rootMapper.insert(root);
+	}
 	
 }

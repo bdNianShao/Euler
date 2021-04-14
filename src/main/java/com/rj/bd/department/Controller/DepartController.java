@@ -1,6 +1,7 @@
 package com.rj.bd.department.Controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rj.bd.department.eneity.Department;
 import com.rj.bd.department.service.IDepartService;
+import com.rj.bd.logs.eneity.Logs;
+import com.rj.bd.logs.service.ILogsService;
+import com.rj.bd.root.entity.Root;
 import com.rj.bd.root.service.IRootService;
+import com.rj.bd.tool.DateTool;
 
 /**
  * @desc: 
@@ -25,6 +30,8 @@ public class DepartController {
 	public IDepartService departService;
 	@Autowired
 	public IRootService rootService;
+	@Autowired
+	public ILogsService logsService;
 	
 	
 	@RequestMapping("query")
@@ -56,13 +63,31 @@ public class DepartController {
 	}
 	
 	
-	@RequestMapping("add")
-	public Map add(Department d){
+	@RequestMapping("addDepartment")
+	
+	@ResponseBody
+	public Map<String, Object> add( String token,Logs logs,Department department)//,int rootid,int staffid
+	{
+		Map<String , Object> map = new HashMap<String, Object>();
+		if ( ! rootService.rootBytoken(token)) 
 		
-		
-		return null;
-		
+	{
+			map.put("msc", -1);
+			map.put("text", "添加失败");
+		return  map;
 	}
+		departService.save(department);
+		
+		logs.setLogtime(DateTool.getNowTimeNum());//开始添加日志
+		String text = "添加了一个部门";
+		logs.setLogtext(text);
+		Root root = rootService.queryRootBytoken(token);
+		logs.setRoot(root);
+		logsService.addLogs(logs);
+		map.put("msc", 200);
+		map.put("text", "添加成功");
+		return map;
+	}	
 	
 
 }

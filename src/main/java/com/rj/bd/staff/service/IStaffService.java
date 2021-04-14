@@ -18,4 +18,6 @@ public interface IStaffService {
 	Staff queryOne(String staffid);
 	
 	void edit(Staff staff);
+
+	void save(Staff staff);
 }

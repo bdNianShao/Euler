@@ -12,13 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.rj.bd.department.eneity.Department;
 import com.rj.bd.logs.eneity.Logs;
 import com.rj.bd.logs.service.ILogsService;
 import com.rj.bd.root.entity.Root;
 import com.rj.bd.root.service.IRootService;
 import com.rj.bd.tool.DateTool;
 
-import net.sf.jsqlparser.parser.Token;
 
 
 /**
@@ -34,9 +34,11 @@ public class RootController
 {
 	
  @Autowired
-private IRootService rootService;
+public IRootService rootService;
  @Autowired
- private ILogsService logService;
+ public ILogsService logsService;
+ 
+ 
 @RequestMapping("/query")
 @ResponseBody
 public List<Root> queryRoot(String token)
@@ -99,7 +101,7 @@ public Map<String, Object> login(String rootnum,String password)
 }
 @RequestMapping("/delete")
 @ResponseBody
-public Map delete(int rootid,String token){
+public Map<String, Object> delete(int rootid,String token){
 	
 	Map<String , Object> map = new HashMap<String, Object>();
 	
@@ -118,7 +120,7 @@ if ( ! rootService.rootBytoken(token))
 	
 	Root root = rootService.queryRootBytoken(token);
 	logs.setRoot(root);
-	logService.addLogs(logs);
+	logsService.addLogs(logs);
 			map.put("msc", 200);
 			map.put("text", "删除成功");
 	return map;
@@ -127,7 +129,7 @@ if ( ! rootService.rootBytoken(token))
 
 @RequestMapping("/reset")
 @ResponseBody
-public Map reset(int rootid,String token){
+public Map<String, Object> reset(int rootid,String token){
 	
 	Map<String , Object> map = new HashMap<String, Object>();
 	
@@ -146,7 +148,7 @@ if ( ! rootService.rootBytoken(token))
 		
 		Root root = rootService.queryRootBytoken(token);
 		logs.setRoot(root);
-		logService.addLogs(logs);		
+		logsService.addLogs(logs);		
 	
 			map.put("msc", 200);
 			map.put("text", "重置成功");
@@ -154,6 +156,34 @@ if ( ! rootService.rootBytoken(token))
 	
 	
 }
+@RequestMapping("addRoot")
+
+@ResponseBody
+public Map<String, Object> add( Root root)//,int rootid,int staffid
+{
+	String rootToken = root.getToken();
+//	System.out.println(rootService.rootBytoken(rootToken));
+	Map<String , Object> map = new HashMap<String, Object>();
+//	if ( ! rootService.rootBytoken(rootToken)) 
+//	
+//{
+//		map.put("msc", -1);
+//		map.put("text", "添加失败");
+//	return  map;
+//}	
+//	
+	root.setToken("123");
+	rootService.save(root);
+	Logs logs=new Logs();
+	logs.setLogtime(DateTool.getNowTimeNum());
+	String text = "添加了一个管理员："+root.getRootname();
+	logs.setLogtext(text);
+	
+	 root = rootService.queryRootBytoken(rootToken);
+	logs.setRoot(root);
+
+	return map;
+}	
 
 
 

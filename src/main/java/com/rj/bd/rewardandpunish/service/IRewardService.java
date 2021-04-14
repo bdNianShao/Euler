@@ -13,4 +13,6 @@ public interface IRewardService {
 	void save(Rewardandpunish r);
 	List<Rewardandpunish> queryreward();
 	List<Rewardandpunish> querypunish();
+	
+	
 }
