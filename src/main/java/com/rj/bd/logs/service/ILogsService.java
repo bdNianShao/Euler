@@ -10,6 +10,7 @@ import com.rj.bd.logs.eneity.Logs;
  * @date: 2021年4月13日 上午8:06:09
  */
 public interface ILogsService {
-	void addlogs(Logs logs);
 	List<Logs> queryLogs();
+	
+	public void addLogs(Logs logs);
 }

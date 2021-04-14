@@ -19,13 +19,25 @@ import com.rj.bd.staff.eneity.Staff;
 public class StaffServiceImpl implements IStaffService{
 	@Autowired
 	private StaffMapper staffMapper;
+	
 	@Override
 	public void delete(Integer staffid) {
 		staffMapper.delete(staffid);
 	}
+	
 	@Override
 	public List<Staff> queryAll() {
 		return staffMapper.findAll();
+	}
+	
+	@Override
+	public Staff queryOne(String staffid) {
+		return staffMapper.findOneById(staffid);
+	}
+	
+	@Override
+	public void edit(Staff staff) {
+		staffMapper.editStaff(staff);
 	}
 
 }

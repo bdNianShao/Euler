@@ -21,15 +21,16 @@ public class LogsServiceImpl implements ILogsService{
 	
 	@Autowired
 	private LogsMapper logsMapper;
-	@Override
-	public void addlogs(Logs logs) {
-		logsMapper.add(logs);
-		
-	}
+
 	@Override
 	public List<Logs> queryLogs() {
 		
 		return logsMapper.findAll();
+	}
+
+	@Override
+	public void addLogs(Logs logs) {
+		logsMapper.addLogs(logs);
 	}
 
 }

@@ -118,7 +118,7 @@ if ( ! rootService.rootBytoken(token))
 	
 	Root root = rootService.queryRootBytoken(token);
 	logs.setRoot(root);
-	logService.addlogs(logs);
+	logService.addLogs(logs);
 			map.put("msc", 200);
 			map.put("text", "删除成功");
 	return map;
@@ -146,7 +146,7 @@ if ( ! rootService.rootBytoken(token))
 		
 		Root root = rootService.queryRootBytoken(token);
 		logs.setRoot(root);
-		logService.addlogs(logs);		
+		logService.addLogs(logs);		
 	
 			map.put("msc", 200);
 			map.put("text", "重置成功");

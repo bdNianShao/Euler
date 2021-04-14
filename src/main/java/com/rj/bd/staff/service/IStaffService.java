@@ -10,6 +10,12 @@ import java.util.List;
 import com.rj.bd.staff.eneity.Staff;
 
 public interface IStaffService {
+	
 	void delete(Integer staffid);
+	
 	List<Staff> queryAll();
+	
+	Staff queryOne(String staffid);
+	
+	void edit(Staff staff);
 }

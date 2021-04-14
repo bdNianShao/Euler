@@ -12,10 +12,10 @@ import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.rj.bd.root.entity.Root;
 import com.rj.bd.staff.eneity.Staff;
 
 
@@ -40,4 +40,23 @@ public interface StaffMapper extends BaseMapper<Staff>{
 	
 	@Select("select * from staff  where staffid=#{staffid}")
 	Staff queryOneById();
+	
+	@Select("SELECT* FROM staff where staffid =#{staffid}")
+	@Results({
+		@Result(column="staffid",property="staffid"),
+		@Result(column="staffnum",property="staffnum"),
+		@Result(column="name",property="name"),
+		@Result(column="sex",property="sex"),
+		@Result(column="edu",property="edu"),
+		@Result(column="age",property="age"),
+		@Result(column="joindate",property="joindate"),
+		@Result(column="jobid",property="job",one=@One(select="com.rj.bd.job.dao.JobMapper.queryOneById")),
+		@Result(column="departid",property="department",one=@One(select="com.rj.bd.department.dao.DepartMapper.queryOneById"))
+	})
+	public Staff findOneById(String staffid);
+	
+	
+	@Update("update staff set name = #{name},edu = #{edu},age = #{age} where staffid=#{staffid}")
+	public void editStaff(Staff staff);
+	
 }
