@@ -8,7 +8,6 @@ package com.rj.bd.staff.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Many;
 import org.apache.ibatis.annotations.One;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;

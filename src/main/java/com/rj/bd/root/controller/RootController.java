@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.rj.bd.logs.eneity.Logs;
+import com.rj.bd.logs.service.ILogsService;
 import com.rj.bd.root.entity.Root;
 import com.rj.bd.root.service.IRootService;
+import com.rj.bd.tool.DateTool;
 
 import net.sf.jsqlparser.parser.Token;
 
@@ -33,7 +35,8 @@ public class RootController
 	
  @Autowired
 private IRootService rootService;
-
+ @Autowired
+ private ILogsService logService;
 @RequestMapping("/query")
 @ResponseBody
 public List<Root> queryRoot(String token)
@@ -108,12 +111,18 @@ if ( ! rootService.rootBytoken(token))
 		return  map;
 	}
 	rootService.delete(rootid);
-			
+	Logs logs=new Logs();
+	logs.setLogtime(DateTool.getNowTimeNum());
+	String text = "删除了一个管理员："+rootid;
+	logs.setLogtext(text);
+	
+	Root root = rootService.queryRootBytoken(token);
+	logs.setRoot(root);
+	logService.addlogs(logs);
 			map.put("msc", 200);
 			map.put("text", "删除成功");
 	return map;
 }
-
 
 
 @RequestMapping("/reset")
@@ -129,8 +138,16 @@ if ( ! rootService.rootBytoken(token))
 		map.put("text", "重置失败");
 		return  map;
 	}
-	rootService.reset(rootid);
-			
+		rootService.reset(rootid);
+		Logs logs=new Logs();
+		logs.setLogtime(DateTool.getNowTimeNum());
+		String text = "重置了一个管理员："+rootid;
+		logs.setLogtext(text);
+		
+		Root root = rootService.queryRootBytoken(token);
+		logs.setRoot(root);
+		logService.addlogs(logs);		
+	
 			map.put("msc", 200);
 			map.put("text", "重置成功");
 	return map;

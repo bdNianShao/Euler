@@ -1,4 +1,9 @@
 package com.rj.bd.department.service;
+
+import java.util.List;
+
+import com.rj.bd.department.eneity.Department;
+
 /**
  * @desc: 
  * @author: ShiJie
@@ -8,4 +13,9 @@ package com.rj.bd.department.service;
 
 public interface IDepartService {
 	void delete(Integer departid);
+
+
+	List<Department> queryAll();
+	
+	void save(Department d);
 }
