@@ -22,4 +22,7 @@ public interface RootMapper extends BaseMapper<Root>
 	
 	@Select("select temp from root  where rootid=#{rootid}")
 	Root queryOneById();
+	
+	@Select("select * from root  where rootid=#{rootid}")
+	Root queryOneById2();
 }

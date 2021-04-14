@@ -15,6 +15,7 @@ import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.rj.bd.root.entity.Root;
 import com.rj.bd.staff.eneity.Staff;
 
 
@@ -36,4 +37,7 @@ public interface StaffMapper extends BaseMapper<Staff>{
 		@Result(column="departid",property="department",one=@One(select="com.rj.bd.department.dao.DepartMapper.queryOneById"))
 	})
 	public List<Staff> findAll();
+	
+	@Select("select * from staff  where staffid=#{staffid}")
+	Staff queryOneById();
 }

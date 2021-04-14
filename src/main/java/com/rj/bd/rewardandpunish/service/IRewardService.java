@@ -1,5 +1,7 @@
 package com.rj.bd.rewardandpunish.service;
 
+import java.util.List;
+
 import com.rj.bd.rewardandpunish.eneity.Rewardandpunish;
 
 /**
@@ -9,4 +11,6 @@ import com.rj.bd.rewardandpunish.eneity.Rewardandpunish;
  */
 public interface IRewardService {
 	void save(Rewardandpunish r);
+	List<Rewardandpunish> queryreward();
+	List<Rewardandpunish> querypunish();
 }

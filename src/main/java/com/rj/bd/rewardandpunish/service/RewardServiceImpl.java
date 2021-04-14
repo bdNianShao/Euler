@@ -1,5 +1,7 @@
 package com.rj.bd.rewardandpunish.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +24,16 @@ public class RewardServiceImpl implements IRewardService{
 	@Override
 	public void save(Rewardandpunish r) {
 		rewardMapper.save(r);
+	}
+	@Override
+	public List<Rewardandpunish> queryreward() {		//查询奖励
+		
+		return rewardMapper.queryReward();
+	}
+	@Override
+	public List<Rewardandpunish> querypunish() {		//查询惩罚
+		
+		return rewardMapper.queryPunish();
 	}
 
 }
