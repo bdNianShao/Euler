@@ -62,6 +62,7 @@ public class RewardController {
 			r.setRptime(DateTool.getNowTimeNum());
 			r.setRoot(root);
 			r.setStaff(staff);
+			System.out.println(r);
 			rewardService.save(r);
 			
 			logs.setLogtime(DateTool.getNowTimeNum());//开始添加日志

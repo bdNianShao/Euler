@@ -8,7 +8,7 @@ import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.rj.bd.staff.eneity.Staff;
+import com.rj.bd.logs.eneity.Logs;
 
 /**
 * @desc 
@@ -17,8 +17,8 @@ import com.rj.bd.staff.eneity.Staff;
 * 
 * @version 2021年4月15日 下午4:02:55
 */
-public class ExcelTool {
-public static XSSFWorkbook  createWorkbook(String bookName,String [] array,List<Staff> list){
+public class ExcelToolLogs {
+public static XSSFWorkbook  createWorkbook(String bookName,String [] array,List<Logs> list){
 
 	XSSFWorkbook excelbook = new XSSFWorkbook(); //创建workBook
 	XSSFSheet excelSheet = excelbook.createSheet();//创建sheet表
@@ -38,14 +38,21 @@ public static XSSFWorkbook  createWorkbook(String bookName,String [] array,List<
 		
 		for (int i = 0; i < list.size(); i++) {
 			XSSFRow excelRow3 = excelSheet.createRow(i+2);
-			excelRow3.createCell(0).setCellValue(list.get(i).getStaffnum());
+			excelRow3.createCell(0).setCellValue(DateTool.convertTimestamp2Date(list.get(i).getLogtime()));
+			excelRow3.createCell(1).setCellValue(list.get(i).getLogtext());
+			excelRow3.createCell(2).setCellValue(list.get(i).getRoot().getTemp());
+			
+			
+			
+			
+			/*excelRow3.createCell(0).setCellValue(list.get(i).getStaffnum());
 			excelRow3.createCell(1).setCellValue(list.get(i).getName());
 			excelRow3.createCell(2).setCellValue(list.get(i).getJob().getJobname());
 			excelRow3.createCell(3).setCellValue(list.get(i).getAge());
 			excelRow3.createCell(4).setCellValue(list.get(i).getSex());
 			excelRow3.createCell(5).setCellValue(list.get(i).getEdu());
 			excelRow3.createCell(6).setCellValue(DateTool.convertTimestamp2Date(list.get(i).getJoindate()));
-			excelRow3.createCell(7).setCellValue(list.get(i).getDepartment().getDepartname());
+			excelRow3.createCell(7).setCellValue(list.get(i).getDepartment().getDepartname());*/
 		}
 		
 		

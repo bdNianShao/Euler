@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.rj.bd.department.eneity.Department;
 import com.rj.bd.logs.eneity.Logs;
 import com.rj.bd.logs.service.ILogsService;
 import com.rj.bd.root.entity.Root;

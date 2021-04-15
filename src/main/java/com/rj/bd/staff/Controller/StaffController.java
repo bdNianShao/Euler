@@ -243,7 +243,7 @@ public class StaffController {
 	public void download(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		
 		List<Staff> list = staffService.queryAll();
-		String[] names = {"工号","姓名","职务"}; 
+		String[] names = {"工号","姓名","职务","性别","年龄","学历","入职时间","部门名称"}; 
 		String fileName ="员工信息表";
 		XSSFWorkbook excelbook = ExcelTool.createWorkbook(fileName,names,list);
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
