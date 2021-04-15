@@ -1,7 +1,10 @@
 package com.rj.bd.department.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
@@ -19,5 +22,11 @@ public interface DepartMapper extends BaseMapper<Department>{
 	public void delete(Integer departid);
 	
 	@Select("select * from department  where departid=#{departid}")
-	Department queryOneById();
+	public List<Department> queryOneById(Integer departid);
+
+	
+	@Update("UPDATE department SET departname = #{departname}, departtext = #{departtext} WHERE departid = #{departid}")
+	public void update(Department department);
+
+	
 }

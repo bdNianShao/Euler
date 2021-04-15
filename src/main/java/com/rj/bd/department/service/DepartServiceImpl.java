@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.rj.bd.department.dao.DepartMapper;
 import com.rj.bd.department.eneity.Department;
 
@@ -21,7 +20,7 @@ public class DepartServiceImpl implements IDepartService{
 	@Autowired
 	private DepartMapper departMapper;
 	public void delete(Integer departid) {
-		departMapper.deleteById(departid);
+		departMapper.delete(departid);
 	}
 	
 	@Override
@@ -32,5 +31,18 @@ public class DepartServiceImpl implements IDepartService{
 	public void save(Department d) {
 		departMapper.insert(d);
 	}
+
+	@Override
+	public List<Department> queryById(Integer departid) {
+		
+		return departMapper.queryOneById(departid);
+	}
+
+	@Override
+	public void update(Department department) {
+		departMapper.update(department);
+		
+	}
+	
 
 }

@@ -33,7 +33,11 @@ public class DepartController {
 	@Autowired
 	public ILogsService logsService;
 	
-	
+	/**
+	 * 查询
+	 * @param token
+	 * @return
+	 */
 	@RequestMapping("query")
 	@ResponseBody
 	public List<Department> queryAll(String token){
@@ -54,15 +58,45 @@ public class DepartController {
 		
 	}
 	
+	/**
+	 * 删除部门
+	 * @param token
+	 * @param departid
+	 * @return
+	 */
 	@RequestMapping("/delete")
-	public Map<String, Object> delete(Integer departid)
+	@ResponseBody
+	public Map<String, Object> delete(String token,Integer departid)
 	{
+		Map<String , Object> map = new HashMap<String, Object>();
+		if ( ! rootService.rootBytoken(token)) 
+		
+	{
+			map.put("msc", -1);
+			map.put("text", "未登录，删除失败");
+		return  map;
+	}
 		System.out.println("delete---->"+departid);
 		departService.delete(departid);
-		return null;
+		Logs logs = new Logs();
+		logs.setLogtime(DateTool.getNowTimeNum());//开始添加日志
+		String text = "删除了一个部门";
+		logs.setLogtext(text);
+		Root root = rootService.queryRootBytoken(token);
+		logs.setRoot(root);
+		logsService.addLogs(logs);
+		map.put("msc", 200);
+		map.put("text", "删除成功");
+		return map;
 	}
 	
-	
+	/**
+	 * 添加部门
+	 * @param token
+	 * @param logs
+	 * @param department
+	 * @return
+	 */
 	@RequestMapping("addDepartment")
 	
 	@ResponseBody
@@ -73,7 +107,7 @@ public class DepartController {
 		
 	{
 			map.put("msc", -1);
-			map.put("text", "添加失败");
+			map.put("text", "未登录，添加失败");
 		return  map;
 	}
 		departService.save(department);
@@ -88,6 +122,54 @@ public class DepartController {
 		map.put("text", "添加成功");
 		return map;
 	}	
+	@RequestMapping("queryById")
 	
+	@ResponseBody
+	public List<Department> queryById(String token,Integer departid){
+		if ( ! rootService.rootBytoken(token)) 
+			
+		{
+			List<Department> list = new ArrayList<Department>();
+			list.add(new Department());
+			return  list;
+		}
+		
+		List<Department> departments = departService.queryById(departid);
+		return departments;
+		
+	}
+	
+	/**
+	 * 修改部门
+	 * @param token
+	 * @param logs
+	 * @param department
+	 * @return
+	 */
+@RequestMapping("update")
+	
+	@ResponseBody
+	public Map<String, Object> updateDepart( String token,Logs logs,Department department)//,int rootid,int staffid
+	{
+		Map<String , Object> map = new HashMap<String, Object>();
+		if ( ! rootService.rootBytoken(token)) 
+		
+	{
+			map.put("msc", -1);
+			map.put("text", "未登录，修改失败");
+		return  map;
+	}
+		departService.update(department);
+		
+		logs.setLogtime(DateTool.getNowTimeNum());//开始添加日志
+		String text = "修改"+department.getDepartid()+"部门";
+		logs.setLogtext(text);
+		Root root = rootService.queryRootBytoken(token);
+		logs.setRoot(root);
+		logsService.addLogs(logs);
+		map.put("msc", 200);
+		map.put("text", "修改成功");
+		return map;
+	}	
 
 }

@@ -114,7 +114,7 @@ public class StaffController {
 	}
 
 	/**
-	 * 修改员工
+	 * 修改员工基本信息
 	 * @param token
 	 * @param staff
 	 * @return
@@ -145,6 +145,46 @@ public class StaffController {
 		return map;
 		
 	}
+	
+	
+	/**
+	 * 修改员工职位调动
+	 * @param token
+	 * @param staff
+	 * @return
+	 */
+	@RequestMapping("/editStaffJob")
+	@ResponseBody
+	public Map<String, Object> editStaffJob(String token,Staff staff,Job job,Department department)
+	{
+		Map<String, Object> map = new HashMap<>();
+		if ( ! rootService.rootBytoken(token)) 
+			
+		{
+			map.put("msc", -1);
+			map.put("text", "未登录");
+			return map;
+		}
+		
+		staff.setJob(job);
+		staff.setDepartment(department);
+		staffService.editJob(staff);
+		map.put("msc", 200);
+		map.put("text", "修改成功");
+		
+		Logs logs = new Logs();
+		logs.setLogtext("修改"+staff.getStaffid()+"员工的职位信息");
+		logs.setLogtime(DateTool.getNowTimeNum());
+		Root root = rootService.queryRootBytoken(token);
+		logs.setRoot(root);
+		logsService.addLogs(logs);
+		
+		return map;
+		
+	}
+	
+	
+	
 	/**
 	 * 添加员工
 	 * @param token

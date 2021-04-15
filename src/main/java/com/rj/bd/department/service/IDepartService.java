@@ -12,10 +12,14 @@ import com.rj.bd.department.eneity.Department;
 
 
 public interface IDepartService {
+	
 	void delete(Integer departid);
-
 
 	List<Department> queryAll();
 	
 	void save(Department d);
+
+	List<Department> queryById(Integer departid);
+
+	void update(Department department);
 }

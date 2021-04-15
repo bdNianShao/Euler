@@ -60,6 +60,9 @@ public interface StaffMapper extends BaseMapper<Staff>{
 	@Update("update staff set name = #{name},edu = #{edu},age = #{age} where staffid=#{staffid}")
 	public void editStaff(Staff staff);
 
+	@Update("update staff set jobid = #{job.jobid},departid = #{department.departid} where staffid=#{staffid}")
+	public void editStaffJob(Staff staff);
+	
 	
 	@Insert("INSERT INTO staff(staffid, jobid, staffnum, name, sex, age, edu, joindate, departid) VALUES (#{staffid},#{job.jobid},#{staffnum},#{name},#{sex},#{age},#{edu},#{joindate},#{department.departid});")
 	public void addStaff(Staff staff);

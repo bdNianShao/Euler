@@ -5,6 +5,7 @@ package com.rj.bd.job.dao;
  * @date: 2021年4月13日 上午8:05:07
  */
 
+
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
@@ -17,4 +18,5 @@ public interface JobMapper extends BaseMapper<Job>{
 	
 	@Select("select * from Job  where jobid=#{jobid}")
 	Job queryOneById();
+	
 }

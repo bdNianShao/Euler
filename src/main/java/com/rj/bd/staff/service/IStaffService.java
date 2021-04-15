@@ -20,4 +20,6 @@ public interface IStaffService {
 	void edit(Staff staff);
 
 	void save(Staff staff);
+	
+	void editJob(Staff staff);
 }
