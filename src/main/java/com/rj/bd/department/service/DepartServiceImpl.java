@@ -1,6 +1,7 @@
 package com.rj.bd.department.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,11 @@ public class DepartServiceImpl implements IDepartService{
 	public void update(Department department) {
 		departMapper.update(department);
 		
+	}
+
+	@Override
+	public List<Map<String, Object>> queryNum() {
+		return departMapper.queryNum();
 	}
 	
 

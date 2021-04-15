@@ -1,6 +1,7 @@
 package com.rj.bd.department.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
@@ -28,5 +29,13 @@ public interface DepartMapper extends BaseMapper<Department>{
 	@Update("UPDATE department SET departname = #{departname}, departtext = #{departtext} WHERE departid = #{departid}")
 	public void update(Department department);
 
-	
+	@Select("SELECT\n" +
+			"	d.departname,\n" +
+			"	COUNT(s.departid) as num \n" +
+			"FROM\n" +
+			"	staff as s\n" +
+			"LEFT JOIN department as d on (s.departid=d.departid)\n" +
+			"GROUP BY\n" +
+			"	s.departid")
+	List<Map<String, Object>> queryNum();
 }

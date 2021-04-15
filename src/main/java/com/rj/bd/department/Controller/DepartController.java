@@ -172,4 +172,23 @@ public class DepartController {
 		return map;
 	}	
 
+@RequestMapping("queryNum")
+@ResponseBody
+public List<Map<String, Object>> queryNum(String token){
+	List<Map<String, Object>> list = new ArrayList<>();
+	if ( ! rootService.rootBytoken(token)) 
+	{
+		Map<String, Object> map = new HashMap<>();
+		map.put("msc", -1);
+		map.put("text", "未登录");
+		list.add(map);
+		return  list;
+	}
+	list = departService.queryNum();
+	System.out.println(list);
+	return list;
+	
+}
+
+
 }

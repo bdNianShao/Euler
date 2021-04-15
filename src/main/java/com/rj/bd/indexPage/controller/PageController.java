@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.rj.bd.indexPage.service.IPageService;
 import com.rj.bd.root.entity.Root;
 import com.rj.bd.root.service.IRootService;
+import com.rj.bd.tool.Configuration;
 
 /**
 * @desc 前端控制器
@@ -41,7 +42,7 @@ public class PageController {
 	    		return  list;
 	    	}
 	    	
-	    List<Map<String, Integer>> list = new ArrayList<Map<String, Integer>>();
+	    List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 	    //
 	    int staffnum = pageService.getStaffnum();
 	    int departmentnum = pageService.getDepartmentnum();
@@ -50,16 +51,14 @@ public class PageController {
 	    int punishnum = pageService.getPunishnum();
 	    
 	    
-	    
-	    HashMap<String, Integer> staffMap = new HashMap<String, Integer>();
-	    staffMap.put("staffnum", staffnum);
-	    staffMap.put("departmentnum", departmentnum);
-	    staffMap.put("logsnum", logsnum);
-	    staffMap.put("rewardnum", rewardnum);
-	    staffMap.put("punishnum", punishnum);
-	    
-	    list.add(staffMap);
-	    
+	    HashMap<String, Object> map = new HashMap<String, Object>();
+	    map.put("staffnum", staffnum);
+	    map.put("departmentnum", departmentnum);
+	    map.put("logsnum", logsnum);
+	    map.put("rewardnum", rewardnum);
+	    map.put("punishnum", punishnum);
+	    map.put("message", Configuration.getConfiguration());
+	    list.add(map);
 	    return list;
 			
 		}

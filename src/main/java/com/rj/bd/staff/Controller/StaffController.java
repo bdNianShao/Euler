@@ -1,10 +1,21 @@
 package com.rj.bd.staff.Controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +30,8 @@ import com.rj.bd.root.service.IRootService;
 import com.rj.bd.staff.eneity.Staff;
 import com.rj.bd.staff.service.IStaffService;
 import com.rj.bd.tool.DateTool;
+import com.rj.bd.tool.ExcelTool;
+
 
 /**
  * @desc: 
@@ -123,7 +136,7 @@ public class StaffController {
 	@ResponseBody
 	public Map<String, Object> editStaff(String token,Staff staff)
 	{
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		if ( ! rootService.rootBytoken(token)) 
 			
 		{
@@ -157,7 +170,7 @@ public class StaffController {
 	@ResponseBody
 	public Map<String, Object> editStaffJob(String token,Staff staff,Job job,Department department)
 	{
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		if ( ! rootService.rootBytoken(token)) 
 			
 		{
@@ -165,7 +178,7 @@ public class StaffController {
 			map.put("text", "未登录");
 			return map;
 		}
-		
+		staff.setJoindate(DateTool.getNowTimeNum());
 		staff.setJob(job);
 		staff.setDepartment(department);
 		staffService.editJob(staff);
@@ -225,5 +238,49 @@ public class StaffController {
 			return  map;
 		
 	}
+	
+	@RequestMapping("download")
+	public void download(HttpServletRequest request,HttpServletResponse response) throws IOException {
+		
+		List<Staff> list = staffService.queryAll();
+		String[] names = {"工号","姓名","职务"}; 
+		String fileName ="员工信息表";
+		XSSFWorkbook excelbook = ExcelTool.createWorkbook(fileName,names,list);
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		try {
+			excelbook.write(os);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		byte[] content = os.toByteArray();
+		InputStream is = new ByteArrayInputStream(content);
+		// 设置response参数，可以打开下载页面
+		response.reset();
+		response.setContentType("application/vnd.ms-excel;charset=utf-8");
+		response.setHeader("Content-Disposition", "attachment;filename="+ new String((fileName + ".xls").getBytes(), "iso-8859-1"));
+		ServletOutputStream out = response.getOutputStream();
+		BufferedInputStream bis = null;
+		BufferedOutputStream bos = null;
+		try 
+		{
+			bis = new BufferedInputStream(is);
+			bos = new BufferedOutputStream(out);
+			byte[] buff = new byte[2048];
+			int bytesRead;
+			// Simple read/write loop.
+			while (-1 != (bytesRead = bis.read(buff, 0, buff.length))) {
+				bos.write(buff, 0, bytesRead);
+			}
+		} catch (final IOException e) {
+			throw e;
+		} finally {
+			if (bis != null)
+				bis.close();
+			if (bos != null)
+				bos.close();
+		}
+	
+	}
+	
 
 }

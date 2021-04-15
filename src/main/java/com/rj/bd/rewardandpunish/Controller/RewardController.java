@@ -46,29 +46,38 @@ public class RewardController {
 	  */
 	@RequestMapping("/addRewardPunish")	
 	@ResponseBody
-	public Map<String, Object> add( String token,Rewardandpunish r,Root root,Staff staff,Logs logs)//,int rootid,int staffid
+	public Map<String, Object> add( String token,Rewardandpunish r,Staff staff,Logs logs)//,int rootid,int staffid
 	{
 		Map<String , Object> map = new HashMap<String, Object>();
 		if ( ! rootService.rootBytoken(token)) 
 		
 	{
 			map.put("msc", -1);
-			map.put("text", "添加失败");
+			map.put("text", "未登录");
 		return  map;
 	}
-		r.setRptime(DateTool.getNowTimeNum());
-		r.setRoot(root);
-		r.setStaff(staff);
-		rewardService.save(r);
+		try 
+		{
+			Root root = rootService.queryRootBytoken(token);
+			r.setRptime(DateTool.getNowTimeNum());
+			r.setRoot(root);
+			r.setStaff(staff);
+			rewardService.save(r);
+			
+			logs.setLogtime(DateTool.getNowTimeNum());//开始添加日志
+			String text = "添加了一个奖励或者惩罚内容";
+			logs.setLogtext(text);
+			logs.setRoot(root);
+			logService.addLogs(logs);
+			map.put("msc", 200);
+			map.put("text", "添加成功");
+			
+		} catch (Exception e) 
+		{
+			map.put("msc", -1);
+			map.put("text", "添加失败");
+		}
 		
-		logs.setLogtime(DateTool.getNowTimeNum());//开始添加日志
-		String text = "添加了一个奖励或者惩罚内容";
-		logs.setLogtext(text);
-		root = rootService.queryRootBytoken(token);
-		logs.setRoot(root);
-		logService.addLogs(logs);
-		map.put("msc", 200);
-		map.put("text", "添加成功");
 		return map;
 	}	
 	

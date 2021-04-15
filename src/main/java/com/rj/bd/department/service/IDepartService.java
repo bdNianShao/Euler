@@ -1,6 +1,7 @@
 package com.rj.bd.department.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.rj.bd.department.eneity.Department;
 
@@ -22,4 +23,7 @@ public interface IDepartService {
 	List<Department> queryById(Integer departid);
 
 	void update(Department department);
+	
+	List<Map<String, Object>> queryNum();
+
 }
