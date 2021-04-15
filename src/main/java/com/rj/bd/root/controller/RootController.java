@@ -17,6 +17,7 @@ import com.rj.bd.logs.service.ILogsService;
 import com.rj.bd.root.entity.Root;
 import com.rj.bd.root.service.IRootService;
 import com.rj.bd.tool.DateTool;
+import com.rj.bd.tool.MD5Utils;
 
 
 
@@ -161,17 +162,17 @@ if ( ! rootService.rootBytoken(token))
 public Map<String, Object> add( Root root)//,int rootid,int staffid
 {
 	String rootToken = root.getToken();
-//	System.out.println(rootService.rootBytoken(rootToken));
 	Map<String , Object> map = new HashMap<String, Object>();
-//	if ( ! rootService.rootBytoken(rootToken)) 
-//	
-//{
-//		map.put("msc", -1);
-//		map.put("text", "添加失败");
-//	return  map;
-//}	
-//	
-	root.setToken("123");
+	if ( ! rootService.rootBytoken(rootToken)) 
+	
+	{
+		map.put("msc", -1);
+		map.put("text", "添加失败");
+	return  map;
+	}	
+	
+	root.setToken(MD5Utils.stringToMD5(root.getRootpassword()+root.getRootname()));
+	System.out.println(root);
 	rootService.save(root);
 	Logs logs=new Logs();
 	logs.setLogtime(DateTool.getNowTimeNum());
@@ -180,7 +181,8 @@ public Map<String, Object> add( Root root)//,int rootid,int staffid
 	
 	 root = rootService.queryRootBytoken(rootToken);
 	logs.setRoot(root);
-
+	map.put("msc", 200);
+	map.put("text", "添加成功");
 	return map;
 }	
 

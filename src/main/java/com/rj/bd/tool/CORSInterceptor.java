@@ -26,13 +26,11 @@ public class CORSInterceptor implements HandlerInterceptor {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		// TODO Auto-generated method stub
-		response.addHeader("Access-Control-Allow-Origin", "*");
 	}
 
 	public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)
 			throws Exception {
 		// TODO Auto-generated method stub
-		response.addHeader("Access-Control-Allow-Origin", "*");
 	}
 
 }

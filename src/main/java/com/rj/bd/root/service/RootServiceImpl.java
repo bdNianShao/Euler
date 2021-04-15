@@ -66,14 +66,13 @@ public class RootServiceImpl implements IRootService
 		LambdaUpdateWrapper<Root> lambdaUpdateWrapper = new LambdaUpdateWrapper<Root>();
 		lambdaUpdateWrapper.eq(true, Root::getRootid, rootid);
 		Root entity = new Root();
-		entity.setRootpassword("123");
-		entity.setToken("123");
+		entity.setRootpassword("e10adc3949ba59abbe56e057f20f883e");
+		entity.setToken("e10adc3949ba59abbe56e057f20f883e"+entity.getRootname());
 		rootMapper.update(entity, lambdaUpdateWrapper);
 	}
 
 	@Override
 	public void save(Root root) {
-		System.out.println(root);
 		rootMapper.insert(root);
 	}
 	
