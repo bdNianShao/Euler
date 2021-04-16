@@ -42,7 +42,6 @@ public class DepartController {
 	public IRootService rootService;
 	@Autowired
 	public ILogsService logsService;
-	@Autowired
 	
 	/**
 	 * 查询
@@ -51,7 +50,7 @@ public class DepartController {
 	 */
 	@RequestMapping("query")
 	@ResponseBody
-	public List<Department> queryAll(String token){
+	public List<Department> queryAllDepartment(String token){
 		if ( ! rootService.rootBytoken(token)) 
 			
 		{

@@ -16,7 +16,6 @@ import com.rj.bd.department.eneity.Department;
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:05:07
  */
-@Service("departMapper")
 public interface DepartMapper extends BaseMapper<Department>{
 	
 	@Delete("delete from department where departid=#{departid}")
