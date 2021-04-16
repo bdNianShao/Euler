@@ -1,5 +1,6 @@
-package com.rj.bd.tool;
+package com.rj.bd.tool.qiniu;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
@@ -13,21 +14,20 @@ import com.qiniu.storage.UploadManager;
 import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 
-import cn.hutool.core.lang.UUID;
-
 /**
-* @desc 
-* 
-* @author TianShuo
-* 
-* @version 2021年4月15日 下午4:59:12
-*/
+ * 
+ * @desc 上传文件测试类
+ * @author
+ * @time
+ */
+@SuppressWarnings("unused")
 public class PutFile {
-	private static String accessKey = "ZpBp-02v6F5Bod37EldpUAtfVHL-manH2t4tIAbk";
-	private static String secretKey = "pEmx2uT-51KTXaQsOvWaI0bg_4moH_wnL8p3jZ38";
-	private static String bucket = "funnystories";
 
+	private static String accessKey = "XIqX87y9n-KDa0S4UzTQZZJ2zKzH1Nc7U2ZFCtwJ";
+	private static String secretKey = "I8BacqHSrSqwGPVHiQglguBwGNTfhI18f3bEXHbN";
+	private static String bucket = "greentrammanager";
 
+	
 	/**
 	 * @desc 上传文件
 	 * @param ImgIO  InputStream
@@ -39,7 +39,7 @@ public class PutFile {
 		UploadManager uploadManager = new UploadManager(cfg);
 
 		// 默认不指定key的情况下，以文件内容的hash值作为文件名
-		String key = UUID.randomUUID().toString() + System.currentTimeMillis() + "." + suffix;
+		String key = SendInfo.GetUUID() + System.currentTimeMillis() + "." + suffix;
 		try {
 			// 设置key认证
 			Auth auth = Auth.create(accessKey, secretKey);
@@ -57,7 +57,7 @@ public class PutFile {
 
 				// System.out.println(putRet.hash);
 				// 返回文件名
-				return "http://file.dreamoforiginal.cn/" + putRet.key;
+				return "http://qralol3sr.bkt.clouddn.com/" + putRet.key;
 			} catch (QiniuException ex) {
 				Response r = ex.response;
 				System.err.println(r.toString());
@@ -74,5 +74,15 @@ public class PutFile {
 		return null;
 	}
 
+	public static void main(String[] args) throws UnsupportedEncodingException {
+
+//		byte[] uploadBytes = "hello qiniu cloud".getBytes("utf-8");
+//		ByteArrayInputStream byteInputStream = new ByteArrayInputStream(uploadBytes);
+//		System.out.println(Putimgs(byteInputStream, "txt"));
+//		System.out.println(accessKey);
+//		System.out.println(secretKey);
+//		System.out.println(bucket);
+
+	}
 
 }
