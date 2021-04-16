@@ -6,6 +6,9 @@ package com.rj.bd.job.dao;
  */
 
 
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Service;
 
@@ -19,4 +22,13 @@ public interface JobMapper extends BaseMapper<Job>{
 	@Select("select * from Job  where jobid=#{jobid}")
 	Job queryOneById();
 	
+	@Select("SELECT\n" +
+			"	j.jobname,\n" +
+			"	COUNT(s.jobid)  as num \n" +
+			"FROM\n" +
+			"	staff as s\n" +
+			"LEFT JOIN job as j on (s.jobid=j.jobid)\n" +
+			"GROUP BY\n" +
+			"	s.jobid")
+	List<Map<String, Object>> queryNum();
 }

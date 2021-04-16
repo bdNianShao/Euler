@@ -208,6 +208,7 @@ public Map<String, Object> addImg(HttpServletRequest request, HttpServletRespons
 	String imagePrifix = "";//图片后缀
 	String rootname = null;
 	String rootpassword = null;
+	String temp = null;
 	// 将请求消息实体中每一个项目封装成单独的DiskFileItem(FileItem接口的实现)对象的任务
 	// 将本次请求的request封装成DiskFileItemFactory对象
 	DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -266,7 +267,10 @@ public Map<String, Object> addImg(HttpServletRequest request, HttpServletRespons
 				{
 					 rootpassword = Item.getString("utf-8");
 				}
-				
+				else if (Item.getFieldName().equals("temp")) 
+				{
+					temp = Item.getString("utf-8");
+				}
 				
 			}
 			
@@ -278,6 +282,13 @@ public Map<String, Object> addImg(HttpServletRequest request, HttpServletRespons
 		System.out.println(rootavatar);
 		String token =MD5Utils.stringToMD5( rootpassword + rootname);
 		
+		Root root = new Root();
+		root.setRootname(rootname);
+		root.setRootpassword(rootpassword);
+		root.setToken(token);
+		root.setRootavatar(rootavatar);
+		root.setTemp(temp);
+		rootService.save(root);
 		
 	 map.put("msc", 200);
 	 map.put("text", "添加成功");

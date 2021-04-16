@@ -1,7 +1,9 @@
 package com.rj.bd.job.Controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,4 +48,24 @@ public class JobController {
 		
 		
 	}
+	
+	
+	@RequestMapping("queryNum")
+	@ResponseBody
+	public List<Map<String, Object>> queryNum(String token){
+		List<Map<String, Object>> list = new ArrayList<>();
+		if ( ! rootService.rootBytoken(token)) 
+		{
+			Map<String, Object> map = new HashMap<>();
+			map.put("msc", -1);
+			map.put("text", "未登录");
+			list.add(map);
+			return  list;
+		}
+		list = jobService.queryNum();
+		System.out.println(list);
+		return list;
+		
+	}
+
 }

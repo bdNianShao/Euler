@@ -1,6 +1,7 @@
 package com.rj.bd.job.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,12 @@ public class JobServiceImpl implements IJobService{
 	@Override
 	public List<Job> queryJobs() {
 		return jobMapper.selectList(null);
+	}
+	
+	
+	@Override
+	public List<Map<String, Object>> queryNum() {
+		return jobMapper.queryNum();
 	}
 
 }
