@@ -2,27 +2,19 @@ package com.rj.bd.root.controller;
 
 
 
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.ContextLoader;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.rj.bd.logs.eneity.Logs;
 import com.rj.bd.logs.service.ILogsService;
@@ -201,97 +193,42 @@ public Map<String, Object> add( Root root)//,int rootid,int staffid
 
 @RequestMapping("addImg")
 @ResponseBody
-public Map<String, Object> addImg(HttpServletRequest request, HttpServletResponse response) throws Exception
-{
-	Map<String, Object> map = new HashMap<String, Object>();
-	FileItem imageItem = null;
-	String imagePrifix = "";//图片后缀
-	String rootname = null;
-	String rootpassword = null;
-	String temp = null;
-	// 将请求消息实体中每一个项目封装成单独的DiskFileItem(FileItem接口的实现)对象的任务
-	// 将本次请求的request封装成DiskFileItemFactory对象
-	DiskFileItemFactory factory = new DiskFileItemFactory();
-	// 使用ServletFileUpload解析器上传数据，解析结果返回一个List<FileItem>集合，每一个FileItem对应一个Form表单
-	ServletFileUpload upload = new ServletFileUpload(factory);
-	// 设定中文处理
-	upload.setHeaderEncoding("utf-8");
-	List<FileItem> formItemList = null;
-	try 
-	{
-		formItemList = upload.parseRequest(request);
-	}
-	catch (FileUploadException e) 
-	{
-		
-	}
+public Map<String, Object> addImg(@RequestParam(value = "file", required = false)MultipartFile[] files,
+	String rootname,String rootpassword,String temp	) throws IllegalStateException, IOException {
 	
-	if ((formItemList != null) || (formItemList.size() > 0)) 
+	Map<String, Object> map = new HashMap<>();
+	String rootavatar = null;
+	for (MultipartFile file : files) 
 	{
-		for (FileItem Item : formItemList) 
-		{
-			if (!Item.isFormField()) {
-				// 如果不是表单（筛选出文件）
-				// 获取文件名字
-				String fileName = Item.getName();
-				System.out.println("上传文件的名字:" + fileName);
-				// 获取后缀
-				String prifix = fileName.substring(fileName.lastIndexOf(".") + 1);
-				// 后缀全部转小写 防止后缀大小写不统一
-				prifix = prifix.toLowerCase();
-				//System.out.println("上传文件的后缀:" + prifix);
-				if (prifix.equals("png") || prifix.equals("jpg") || prifix.equals("bmp") || prifix.equals("tif")
-						|| prifix.equals("gif") || prifix.equals("jpeg")) 
-				{
-					// 仅支持这几种格式的数据
-					imageItem =Item;
-					imagePrifix = prifix;
-					
-				}
-				else
-				{
-					map.put("msc", -1);
-					map.put("text", "添加失败");
-					return map;
-				}
-			}
-			
-			//其它参数
-			else 
-			{
-				if (Item.getFieldName().equals("rootname")) 
-				{
-					 rootname = Item.getString("utf-8");
-				}
-				else if (Item.getFieldName().equals("rootpassword")) 
-				{
-					 rootpassword = Item.getString("utf-8");
-				}
-				else if (Item.getFieldName().equals("temp")) 
-				{
-					temp = Item.getString("utf-8");
-				}
-				
-			}
-			
-			
-		}
-	
+		//文件名称
+		String fileName = file.getOriginalFilename();
+		System.out.println(fileName);
+		//文件后缀
+		String fileType = fileName.substring(fileName.indexOf("."), fileName.length());
+		// 文件InputStream
+		InputStream fileInputStream  = file.getInputStream();
+		rootavatar = PutFile.Putimgs(fileInputStream, fileType);
 	}
-		String rootavatar = PutFile.Putimgs(imageItem.getInputStream(), imagePrifix);
-		System.out.println(rootavatar);
+			
+	if (rootavatar != null) 
+	{
 		String token =MD5Utils.stringToMD5( rootpassword + rootname);
-		
 		Root root = new Root();
 		root.setRootname(rootname);
-		root.setRootpassword(rootpassword);
+		root.setRootpassword(MD5Utils.stringToMD5(rootpassword));
 		root.setToken(token);
 		root.setRootavatar(rootavatar);
 		root.setTemp(temp);
 		rootService.save(root);
+		 map.put("msc", 200);
+		 map.put("text", "添加成功");
+	}else {
+		map.put("msc", -3);
+		 map.put("text", "添加失败");
+	}
 		
-	 map.put("msc", 200);
-	 map.put("text", "添加成功");
+		
+	
 	return map;
 	
 }	
