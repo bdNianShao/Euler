@@ -2,13 +2,12 @@ package com.rj.bd.root.dao;
 
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rj.bd.root.entity.Root;
 
 /**
-* @desc 
+* @desc 管理员模块的持久层
 * 
 * @author TianShuo
 * 
@@ -17,10 +16,10 @@ import com.rj.bd.root.entity.Root;
 public interface RootMapper extends BaseMapper<Root>
 {
 	@Delete("delete from root where rootid=#{rootid}")
-	public void delete(int rootid);
+	public void delete(int rootid);												//删除
 	
 	@Select("select temp from root  where rootid=#{rootid}")
-	Root queryOneById();
+	Root queryOneById();														//查询单条
 	
 	@Select("select * from root  where rootid=#{rootid}")
 	Root queryOneById2();

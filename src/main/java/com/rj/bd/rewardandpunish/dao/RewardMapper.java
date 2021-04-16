@@ -22,7 +22,7 @@ import com.rj.bd.rewardandpunish.eneity.Rewardandpunish;
 public interface RewardMapper extends BaseMapper<Rewardandpunish>{
 
 	@Insert("insert into rewardandpunish (rpid,rptext,rpkind,rptime,rootid,staffid) values (#{rpid},#{rptext},#{rpkind},#{rptime},#{root.rootid},#{staff.staffid})")
-	public void save(Rewardandpunish r);
+	public void save(Rewardandpunish r);																	//添加保存
 	
 	@Select("select * from rewardandpunish where rpkind ='0'")
 	@Results({
@@ -33,7 +33,7 @@ public interface RewardMapper extends BaseMapper<Rewardandpunish>{
 		@Result(column="rootid",property="root",one=@One(select="com.rj.bd.root.dao.RootMapper.queryOneById2")),
 		@Result(column="staffid",property="staff",one=@One(select="com.rj.bd.staff.dao.StaffMapper.queryOneById"))
 	})
-	public List<Rewardandpunish> queryReward();
+	public List<Rewardandpunish> queryReward();																//查询奖励
 	
 	@Select("select * from rewardandpunish where rpkind ='1'")
 	@Results({
@@ -44,5 +44,5 @@ public interface RewardMapper extends BaseMapper<Rewardandpunish>{
 		@Result(column="rootid",property="root",one=@One(select="com.rj.bd.root.dao.RootMapper.queryOneById2")),
 		@Result(column="staffid",property="staff",one=@One(select="com.rj.bd.staff.dao.StaffMapper.queryOneById"))
 	})
-	public List<Rewardandpunish> queryPunish();
+	public List<Rewardandpunish> queryPunish();																//查询惩罚
 }

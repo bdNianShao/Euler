@@ -20,7 +20,7 @@ import com.rj.bd.job.eneity.Job;
 public interface JobMapper extends BaseMapper<Job>{
 	
 	@Select("select * from Job  where jobid=#{jobid}")
-	Job queryOneById();
+	Job queryOneById();													//查询单条
 	
 	@Select("SELECT\n" +
 			"	j.jobname,\n" +
@@ -30,5 +30,5 @@ public interface JobMapper extends BaseMapper<Job>{
 			"LEFT JOIN job as j on (s.jobid=j.jobid)\n" +
 			"GROUP BY\n" +
 			"	s.jobid")
-	List<Map<String, Object>> queryNum();
+	List<Map<String, Object>> queryNum();								//查询数量
 }

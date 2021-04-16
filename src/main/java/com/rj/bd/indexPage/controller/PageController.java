@@ -7,8 +7,12 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.rj.bd.indexPage.service.IPageService;
 import com.rj.bd.root.entity.Root;
@@ -25,8 +29,13 @@ import com.rj.bd.tool.Configuration;
 @Controller
 @RequestMapping("/page")
 public class PageController {
+	
+	
+	
 	 @Autowired
 	    private IPageService pageService;
+	 
+	 
 	 @Autowired
 	 private IRootService rootService;
 	    @RequestMapping("/query")
@@ -62,5 +71,18 @@ public class PageController {
 	    return list;
 			
 		}
+	    
 
-}
+	@RequestMapping("/fk")
+	public ModelAndView getFk(){
+		
+		
+		ModelAndView mView = new ModelAndView();
+		
+		mView.addObject("name", "欢迎使用欧拉人事管理系统");
+		
+		mView.setViewName("test");
+		
+		return mView;
+	}
+	}
