@@ -13,4 +13,8 @@ public interface ILogsService {
 	List<Logs> queryLogs();
 	
 	public void addLogs(Logs logs);
+	
+	public int getLosCount();
+
+	List<Logs> queryPageLogs(int page, int size);
 }

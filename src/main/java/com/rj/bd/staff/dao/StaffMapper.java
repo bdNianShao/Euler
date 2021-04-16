@@ -67,4 +67,20 @@ public interface StaffMapper extends BaseMapper<Staff>{
 	@Insert("INSERT INTO staff(staffid, jobid, staffnum, name, sex, age, edu, joindate, departid) VALUES (#{staffid},#{job.jobid},#{staffnum},#{name},#{sex},#{age},#{edu},#{joindate},#{department.departid});")
 	public void addStaff(Staff staff);
 	
+	
+	
+	@Select("SELECT* FROM staff where name like CONCAT('%',#{name},'%')")
+	@Results({
+		@Result(column="staffid",property="staffid"),
+		@Result(column="staffnum",property="staffnum"),
+		@Result(column="name",property="name"),
+		@Result(column="sex",property="sex"),
+		@Result(column="edu",property="edu"),
+		@Result(column="age",property="age"),
+		@Result(column="joindate",property="joindate"),
+		@Result(column="jobid",property="job",one=@One(select="com.rj.bd.job.dao.JobMapper.queryOneById")),
+		@Result(column="departid",property="department",one=@One(select="com.rj.bd.department.dao.DepartMapper.queryOneById"))
+	})
+	public List<Staff> queryByName(String name);
+	
 }

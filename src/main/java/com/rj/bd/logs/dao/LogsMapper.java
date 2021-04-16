@@ -35,4 +35,16 @@ public interface LogsMapper extends BaseMapper<Logs>{
 	
 	@Insert("insert into logs (logid,logtime,logtext,rootid) values (0,#{logtime},#{logtext},#{root.rootid})")
 	public void addLogs(Logs logs);
+	
+	@Select("SELECT * FROM logs limit #{param1},#{param2}")
+	@Results({
+		@Result(column="logid",property="logid"),
+		@Result(column="logtime",property="logtime"),
+		@Result(column="logtext",property="logtext"),
+		@Result(column="joindate",property="joindate"),
+		@Result(column="rootid",property="root",one=@One(select="com.rj.bd.root.dao.RootMapper.queryOneById")),
+	})
+	public List<Logs> findSome(int page,int size);
+	
+	
 }

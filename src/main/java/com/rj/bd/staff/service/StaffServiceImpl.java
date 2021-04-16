@@ -53,5 +53,10 @@ public class StaffServiceImpl implements IStaffService{
 		staffMapper.addStaff(staff);
 		
 	}
+
+	@Override
+	public List<Staff> queryByName(String name) {
+		return staffMapper.queryByName(name);
+	}
 	
 }

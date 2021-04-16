@@ -22,4 +22,6 @@ public interface IStaffService {
 	void save(Staff staff);
 	
 	void editJob(Staff staff);
+
+	List<Staff> queryByName(String name);
 }

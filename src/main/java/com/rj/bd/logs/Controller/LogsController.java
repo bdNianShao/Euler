@@ -7,7 +7,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -42,7 +44,7 @@ public class LogsController {
 	
 	@RequestMapping("/query")
 	@ResponseBody
-	public List<Logs> queryRoot(String token){
+	public List<Logs> queryRoot(String token,int page,int size){
 		if ( ! rootService.rootBytoken(token)) 
 			
 		{
@@ -51,7 +53,9 @@ public class LogsController {
 			return  list;
 		}
 		
-		List<Logs> logs = logsService.queryLogs();
+		System.out.println(page);
+		System.out.println(size);
+		List<Logs> logs = logsService.queryPageLogs(page,size);
 		
 
 		for (Logs log : logs) 
@@ -104,4 +108,14 @@ public class LogsController {
 	
 	}
 	
+	@RequestMapping("/getLogsCount")
+	@ResponseBody
+	public Map<String,Object> getLogsCount(){
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("msc",200);
+		map.put("num", logsService.getLosCount());
+		
+		return map;
+		
+	}
 }

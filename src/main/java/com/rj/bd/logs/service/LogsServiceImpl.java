@@ -33,4 +33,17 @@ public class LogsServiceImpl implements ILogsService{
 		logsMapper.addLogs(logs);
 	}
 
+	@Override
+	public int getLosCount() 
+	{
+		return logsMapper.selectCount(null);
+	}
+
+	@Override
+	public List<Logs> queryPageLogs(int page, int size) {
+		return logsMapper.findSome((page-1)*size, size);
+	}
+	
+	
+
 }

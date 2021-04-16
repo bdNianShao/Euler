@@ -281,6 +281,26 @@ public class StaffController {
 		}
 	
 	}
-	
+	@RequestMapping("/querySome")
+	@ResponseBody
+		public List<Staff> querySome(String token,String name){
+			if ( ! rootService.rootBytoken(token)) 
+				
+			{
+				List<Staff> list = new ArrayList<Staff>();
+				list.add(new Staff());
+				return  list;
+			}
+			
+			List<Staff> staffs = staffService.queryByName(name);
+			
+		
+			for (Staff staff : staffs) 
+			{
+				staff.setJoindate(DateTool.convertTimestamp2Date(staff.getJoindate()));
+			}
+			
+			return staffs;
+		}
 
 }
