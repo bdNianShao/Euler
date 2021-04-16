@@ -17,5 +17,6 @@ public class Department {
 	public int departid;
 	public String departname;
 	public String departtext;
+	public String departimg;
 	
 }
