@@ -10,7 +10,7 @@ import com.rj.bd.department.dao.DepartMapper;
 import com.rj.bd.department.eneity.Department;
 
 /**
- * @desc: 
+ * @desc: department的接口
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:07:10
  */

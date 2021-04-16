@@ -6,7 +6,7 @@ import java.util.Map;
 import com.rj.bd.job.eneity.Job;
 
 /**
- * @desc: 
+ * @desc: job的接口
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:06:09
  */

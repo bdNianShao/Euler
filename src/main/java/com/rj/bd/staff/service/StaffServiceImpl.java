@@ -10,7 +10,7 @@ import com.rj.bd.staff.dao.StaffMapper;
 import com.rj.bd.staff.eneity.Staff;
 
 /**
- * @desc: 
+ * @desc: 员工接口的实现类
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:07:10
  */

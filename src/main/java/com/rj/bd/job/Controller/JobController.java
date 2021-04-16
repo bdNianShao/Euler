@@ -15,7 +15,7 @@ import com.rj.bd.job.service.IJobService;
 import com.rj.bd.root.service.IRootService;
 
 /**
- * @desc: 
+ * @desc: job的C层
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:01:54
  */
@@ -27,7 +27,11 @@ public class JobController {
 	public IJobService jobService;
 	@Autowired
 	public IRootService rootService;
-	
+	/**
+	 * 查询
+	 * @param token
+	 * @return
+	 */
 	@RequestMapping("/queryJob")
 	@ResponseBody
 	public List<Job> queryJob(String token){
@@ -48,7 +52,11 @@ public class JobController {
 		
 		
 	}
-	
+	/**
+	 * 查询数量
+	 * @param token
+	 * @return
+	 */
 	
 	@RequestMapping("queryNum")
 	@ResponseBody

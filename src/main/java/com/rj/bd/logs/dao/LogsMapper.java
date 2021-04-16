@@ -1,6 +1,6 @@
 package com.rj.bd.logs.dao;
 /**
- * @desc: 
+ * @desc: logs的持久层
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:05:07
  */
