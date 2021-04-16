@@ -19,7 +19,7 @@ import com.rj.bd.root.service.IRootService;
 import com.rj.bd.tool.DateTool;
 
 /**
- * @desc: 
+ * @desc: department的C层
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:01:54
  */

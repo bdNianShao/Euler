@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.rj.bd.department.eneity.Department;
 
 /**
- * @desc: 
+ * @desc: department的持久层
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:05:07
  */

@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * @desc: 
+ * @desc: department的实体类
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:05:36
  */

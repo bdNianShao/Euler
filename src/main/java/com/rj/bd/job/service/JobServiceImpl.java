@@ -11,7 +11,7 @@ import com.rj.bd.job.dao.JobMapper;
 import com.rj.bd.job.eneity.Job;
 
 /**
- * @desc: 
+ * @desc: job接口的实现类
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:07:10
  */

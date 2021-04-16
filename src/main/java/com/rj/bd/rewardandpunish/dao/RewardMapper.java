@@ -1,6 +1,6 @@
 package com.rj.bd.rewardandpunish.dao;
 /**
- * @desc: 
+ * @desc: 奖罚的持久层
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:05:07
  */

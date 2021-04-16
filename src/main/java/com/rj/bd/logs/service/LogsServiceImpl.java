@@ -6,12 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.rj.bd.department.dao.DepartMapper;
 import com.rj.bd.logs.dao.LogsMapper;
 import com.rj.bd.logs.eneity.Logs;
 
 /**
- * @desc: 
+ * @desc: logs接口的实现类
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:07:10
  */

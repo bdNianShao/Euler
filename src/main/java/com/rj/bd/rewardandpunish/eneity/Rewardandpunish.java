@@ -1,6 +1,6 @@
 package com.rj.bd.rewardandpunish.eneity;
 /**
- * @desc: 
+ * @desc: 奖罚实体类
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:05:36
  */

@@ -26,7 +26,7 @@ import com.rj.bd.tool.DateTool;
 import com.rj.bd.tool.ExcelToolLogs;
 
 /**
- * @desc: 
+ * @desc: 日志的C层
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:01:54
  */
@@ -39,7 +39,11 @@ public class LogsController {
 	
 	@Autowired
 	public IRootService rootService;
-	
+	/**
+	 * 查询全部
+	 * @param token
+	 * @return
+	 */
 	@RequestMapping("/query")
 	@ResponseBody
 	public List<Logs> queryRoot(String token){
@@ -61,6 +65,14 @@ public class LogsController {
 		
 		return logs;
 	}
+	
+	
+	/**
+	 * 下载导出excel
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 */
 	@RequestMapping("download")
 	public void download(HttpServletRequest request,HttpServletResponse response) throws IOException {
 		

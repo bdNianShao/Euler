@@ -6,7 +6,7 @@ import java.util.Map;
 import com.rj.bd.department.eneity.Department;
 
 /**
- * @desc: 
+ * @desc: department接口的实现类
  * @author: ShiJie
  * @date: 2021年4月13日 上午8:06:09
  */
